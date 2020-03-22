@@ -1,0 +1,65 @@
+<!--
+============================================
+; Title: Assignment 5.2
+; Author: Chris Bohnet
+; Date: 19 March 2020
+; Modified By:
+; Description: EJS Templates Example - You’ve seen simple examples of how to render views before, but in case you need a refresher, 
+; app.set(“view engine”, “ejs”); tells Express that any file ending in .ejs should be rendered with the ejs package (Hahn, 2016).  
+; app.set(“views”, path.resolve(__dirname, “views”)); tells Express where the views folder is and calling response.render(“index”), renders 
+; a file called index.ejs.
+; 
+; Express’s default content type is HTML, so if you don’t do anything special, response.render will render your response and send them to 
+; the client as HTML (Hahn, 2016); however, as illustrated in earlier exercises, Express has the ability to return content in many different 
+; formats (text, XML, JSON, HTML). Changing the response object’s content type will tell Express what format to use. 
+============================================
+
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>if...else...render</title>
+
+    <!-- Stylesheet - Bootstrap -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
+      integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+      <ul class="navbar-nav">
+        <li class="nav-item active">
+          <a class="nav-link" href="#">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Contact Us</a>
+        </li>
+      </ul>
+    </nav>
+
+    <div role="main" class="container">
+      <br /><br />
+
+      <h2>Name List</h2>
+      <!-- // if If the length of the array is greater than 0, iterate over the array and output the names-->
+      <% if (names.length > 0) { %>
+        <!-- for loop -->
+         <% for (var k = 0; k < names.length; k++) { %>
+            <div class="alert alert-success" role="alert">
+               <strong><%= names[k] %></strong>
+            </div>
+      <% } %>
+      <!-- // end if -->
+      
+      <% } %>
+      <!-- end for loop -->
+    </div>
+  </body>
+</html>

@@ -1,0 +1,15 @@
+{
+  "name": "if-else-render",
+  "author": "Chris Bohnet",
+  "firstName": "Chris",
+  "lastName": "Bohnet",
+  "email": "christinebohnet@gmail.com",
+  "address": "123 main street",
+  "city": "CB",
+  "state": "Iowa",
+  "zip": "51503",
+  "dependencies": {
+    "ejs": "^3.0.1",
+    "express": "^4.17.1"
+  }
+}
