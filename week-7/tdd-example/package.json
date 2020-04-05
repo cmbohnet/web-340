@@ -1,0 +1,22 @@
+{
+  "name": "tdd-example",
+  "author": "Chris Bohnet",
+  "firstName": "Chris",
+  "lastName": "Bohnet",
+  "email": "christinebohnet@gmail.com",
+  "address": "123 main street",
+  "city": "CB",
+  "state": "Iowa",
+  "zip": "51503",
+  "dependencies": {
+    "chai": "^4.2.0",
+    "ejs": "^3.0.1",
+    "express": "^4.17.1",
+    "mocha": "^7.1.1",
+    "mongoose": "^5.9.6",
+    "morgan": "^1.10.0"
+  },
+  "scripts": {
+    "test": "mocha"
+  }
+}
