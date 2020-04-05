@@ -8,8 +8,7 @@
 ============================================
 
 -->
-<!DOCTYPE html>
-<html lang="en">
+
   <%- include('header'); -%>
 
   <body>
@@ -18,17 +17,35 @@
     <div role="main" class="container" style="width: 50%;">
       <br /><br />
 
-      <h2>-- Employee Entry Page --</h2>
+      <h2>Employee Entry Page</h2>
       <form method="post" action="/process">
         <div class="form-group">
-          <label for="txtName">Name:</label>
+         <!-- <label for="txtName">Name:</label>
           <input type="text" class="form-control" id="txtName" name="txtName" />
+          <label for="txtName">Functions:</label>
+          <input type="text" class="form-control" id="txtFunctions" name="txtFunctions" />
+-->
+          <table class="table table-light table-striped table-hover">
+            <thead>
+              <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><input type="text" class="form-control" id="txtFirstName" name="txtFirstName"></td>
+                <td><input type="text" class="form-control" id="txtLastName" name="txtLastName" /></td>
+                   
+              </tr>
+            </tbody>
+          </table>
+
         </div>
 
         <div class="form-group">
-          <!-- CSRF token -->
-        <!--  <input name="_csrf" value="<%= csrfToken %>" type="hidden" /> -->
-
+         
           <button type="submit" class="btn btn-secondary float-right">
             Submit
           </button>
@@ -37,9 +54,10 @@
 
       <br /><br />
 
-      <a href="/list">Return to Employees</a>
+     <!--  <a href="/list">Return to Employees</a> -->
+      <a class="" href="/list">Return to  Employee</a>
     </div>
 
     <%- include('scripts'); -%>
   </body>
-</html>
+  <%- include('footer'); -%>
