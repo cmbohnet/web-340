@@ -112,19 +112,30 @@ app.post("/process", function(request, response) {
 
     console.log(request.body.txtFirstName);
     if (!request.body.txtFirstName) {
-        response.status(400).send('Entries must have a name');
+        response.status(400).send('Entries must have a first name');
         return;
       }
     
+      if (!request.body.txtLastName) {
+        response.status(400).send('Entries must have a last name');
+        return;
+      }
+
+      if (!request.body.txtEmail) {
+        response.status(400).send('Entries must have an email');
+        return;
+      }
       // get the request's form data
       const employeeName = request.body.txtFirstName;
       const employeeLast = request.body.txtLastName;
+      const email = request.body.txtEmail;
       console.log(employeeName);
     
       // create a fruit model
       let employee = new Employee({
         firstName: employeeName,
-        lastName: employeeLast
+        lastName: employeeLast,
+        email: email
       });
     
       // save
@@ -157,15 +168,28 @@ app.get("/new", function (request, response) {
 
 //Routing for display list of current employees page
 app.get("/list", function (request, response) {
+    Employee.find({}, function(err, employees) {
+        if (err) {
+          console.log(err);
+          throw err;
+        } else {
+          console.log(employees);
+          response.render('list', {
+            title: 'EMS | Home',
+            employees: employees
+          })
+        }
+      });
+    });
 
-    response.render("list", {
+    /*response.render("list", {
 
         title: "List of Employees",
         employee: employee
     });
 
 });
-
+*/
 http.createServer(app).listen(8080, function() {
 
     console.log("Application started on port 8080!");
