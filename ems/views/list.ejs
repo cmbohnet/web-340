@@ -10,14 +10,14 @@
 -->
 <!-- Scripts -->
 
-  <%- include('header'); -%>
+<%- include('header'); -%>
 
 <body>
   <%- include('navbar'); -%>
 
-<div role="main" class="container" style="width: 30%;">
-  <br /><br />
-<!--
+  <div role="main" class="container" style="width: 30%;">
+    <br /><br />
+    <!--
 ============================================
 ; Title: Assignment 5.4
 ; Author: Chris Bohnet
@@ -27,24 +27,26 @@
 ============================================
 
 -->
-  <% if (employee.length) { %>
+    <% if (employee.length) { %>
     <h2>Employees</h2>
     <br />
     <a class="" href="new">New Employee</a>
     <br />
     <table class="table table-hover">
       <thead class="bg-secondary">
-      <tr>
-        <th class="text-white">First Name</th>
-        <th class="text-white">Last Name</th>
-      </tr>
+        <tr>
+          <th class="text-white">First Name</th>
+          <th class="text-white">Last Name</th>
+          <th class="text-white">Edit</th>
+        </tr>
       </thead>
       <tbody>
-      <% employee.forEach(function (entry) { %>
+        <% employee.forEach(function (entry) { %>
         <tr>
           <td><%= entry.firstName %></td>
+          <td><%= entry.lastName %></td>
           <td style="width: 10%; text-align: center;">
-            <a style="color: #555" href="/view/<%= entry.firstName %>">
+            <a style="color: #555;" href="/view/<%= entry.firstName %>">
               <i class="fa fa-pencil fa-fw" aria-hidden="true"></i>
             </a>
           </td>
@@ -52,11 +54,12 @@
       </tbody>
       <% }) %>
     </table>
-  <% } else { %> There are no employee records. <a href="new">Add one here.</a>
-  <% } %>
+    <% } else { %> There are no employee records.
+    <a href="new">Add one here.</a>
+    <% } %>
 
-  <br />
-</div>
-<%- include('scripts'); -%>
+    <br />
+  </div>
+  <%- include('scripts'); -%>
 </body>
 <%- include('footer'); -%>

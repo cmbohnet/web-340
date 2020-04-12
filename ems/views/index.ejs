@@ -17,7 +17,7 @@
 <div role="main" class="container" style="width: 30%;">
   <br /><br />
 
-  <% if (employee.length) { %>
+  <% if (employees.length) { %>
     <h2>Employees</h2>
     <br />
     <a class="" href="new">New Employee</a>
@@ -27,12 +27,15 @@
       <tr>
         <th class="text-white">First Name</th>
         <th class="text-white">Last Name</th>
+        <th class="text-white">Edit</th>
+
       </tr>
       </thead>
       <tbody>
-      <% employee.forEach(function (entry) { %>
+      <% employees.forEach(function (entry) { %>
         <tr>
           <td><%= entry.firstName %></td>
+          <td><%= entry.lastName %></td>
           <td style="width: 10%; text-align: center;">
             <a style="color: #555" href="/view/<%= entry.firstName %>">
               <i class="fa fa-pencil fa-fw" aria-hidden="true"></i>

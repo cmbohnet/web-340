@@ -13,6 +13,14 @@ var http = require("http");
 var path = require("path");
 var mongoose = require("mongoose");
 var logger = require("morgan");
+var helmet = require("helmet");
+var bodyParser = require("body-parser");
+var cookieParser = require("cookie-parser");
+var csrf = require("csurf");
+
+// setup csrf protection
+var csrfProtection = csrf({cookie: true});
+
 var Employee = require("./models/employee");
 
 // mLab connection
@@ -32,9 +40,31 @@ db.once("open", function() {
 
 //Create the express application and set the ejs views and logger
 var app = express();
+
+//use statements
+app.use(logger("short"));
+
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
+
+app.use(cookieParser());
+app.use(helmet.xssFilter());
+//CSRF protection
+app.use(csrfProtection);
+
+//Intercepts all incoming requests and adds a CSRF token to the response.
+app.use(function(request, response, next) {
+    var token = request.csrfToken();
+    response.cookie('XSRF-TOKEN', token);
+    response.locals.csrfToken = token;
+    next();
+});
+
+//set statements
 app.set("views", path.resolve(__dirname, "views"));
 app.set("view engine", "ejs");
-app.use(logger("short"));
+app.set('port', process.env.PORT || 8080);
 
 // model
 var employee = new Employee({
@@ -53,14 +83,66 @@ var employee = new Employee({
 */
 //Routing for landing page
 app.get("/", function (request, response) {
+    Employee.find({}, function(err, employees) {
+        if (err) {
+          console.log(err);
+          throw err;
+        } else {
+          console.log(employees);
+          response.render('index', {
+            title: 'EMS | Home',
+            employees: employees
+          })
+        }
+      });
+    });
 
-    response.render("index", {
+
+    /*response.render("index", {
 
         title: "Home page",
         employee: employee
     });
 
 });
+*/
+
+//Processes a form submission.
+app.post("/process", function(request, response) {
+
+    console.log(request.body.txtFirstName);
+    if (!request.body.txtFirstName) {
+        response.status(400).send('Entries must have a name');
+        return;
+      }
+    
+      // get the request's form data
+      const employeeName = request.body.txtFirstName;
+      const employeeLast = request.body.txtLastName;
+      console.log(employeeName);
+    
+      // create a fruit model
+      let employee = new Employee({
+        firstName: employeeName,
+        lastName: employeeLast
+      });
+    
+      // save
+      employee.save(function(err) {
+        if (err) {
+          console.log(err);
+          throw err;
+        } else {
+          console.log(employeeName + ' saved successfully!');
+          response.redirect('/');
+        }
+      });
+    });  
+    
+    /*response.redirect("/");
+
+});
+*/
 
 //Routing for new employee entry page
 app.get("/new", function (request, response) {
